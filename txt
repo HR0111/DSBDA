@@ -1,0 +1,19 @@
+import pandas as pd
+from sklearn import preprocessing
+
+# Assuming df is your original DataFrame
+# Assuming enc_df is the DataFrame obtained after one-hot encoding
+
+# Initialize the OneHotEncoder
+enc = preprocessing.OneHotEncoder()
+
+# Fit and transform the 'age' column and convert it to a DataFrame
+enc_df = pd.DataFrame(enc.fit_transform(df[['age']]).toarray())
+
+# Drop the original 'age' column from df
+df.drop('age', axis=1, inplace=True)
+
+# Concatenate the original DataFrame df with the one-hot encoded DataFrame enc_df along the columns axis
+df = pd.concat([df, enc_df], axis=1)
+
+# Now df contains the original data along with the one-hot encoded columns replacing the 'age' column
